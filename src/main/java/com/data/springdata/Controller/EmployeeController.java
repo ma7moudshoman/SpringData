@@ -1,6 +1,7 @@
 package com.data.springdata.Controller;
 
-import com.data.springdata.Model.Employee;
+import com.data.springdata.Model.DTO.EmployeeDTO;
+import com.data.springdata.Model.Entity.Employee;
 import com.data.springdata.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,12 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping("/fidUserById")
-    public Optional<Employee> getUser(@RequestParam int id){
+    public EmployeeDTO getUser(@RequestParam int id){
         return employeeService.getUser(id);
     }
     @PostMapping("/sava")
-    public void save(@RequestBody Employee employee){
-        employeeService.UpdateEmployee(employee);
+    public EmployeeDTO Update(@RequestBody EmployeeDTO employeeDTO){
+       return employeeService.UpdateEmployee(employeeDTO);
     }
     @GetMapping("/Allusers")
     public List<Employee>allEmployees(){

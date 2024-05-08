@@ -1,6 +1,7 @@
 package com.data.springdata.Service;
 
-import com.data.springdata.Model.Employee;
+import com.data.springdata.Model.DTO.EmployeeDTO;
+import com.data.springdata.Model.Entity.Employee;
 import com.data.springdata.Repository.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,20 @@ public class EmployeeService {
     @Autowired
     EmployeeRepo employeeRepo;
 
-    public Optional<Employee> getUser(int id){
-     return   employeeRepo.findById(id);
+    public EmployeeDTO getUser(int id){
+        Optional<Employee> employee=employeeRepo.findById(id);
+        if ((employee.isPresent()))
+            return EmployeeDTO.toDto(employee.get());
+else
+    return null;
+
     }
 
     public List<Employee>getAllUsers(){
         return employeeRepo.findAll();
     }
-    public void UpdateEmployee(Employee employee){
-        employeeRepo.save(employee);
+    public EmployeeDTO UpdateEmployee(EmployeeDTO employee){
+       return EmployeeDTO.toDto( employeeRepo.save(Employee.toEntity(employee)));
     }
 
     public void deleteEmployee(int id){

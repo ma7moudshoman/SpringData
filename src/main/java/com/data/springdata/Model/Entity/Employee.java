@@ -1,5 +1,6 @@
-package com.data.springdata.Model;
+package com.data.springdata.Model.Entity;
 
+import com.data.springdata.Model.DTO.EmployeeDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,5 +24,17 @@ public class Employee {
     private  String lastname;
     @Column(name = "salary")
     private double Salary;
+
+    public static Employee toEntity(EmployeeDTO dto){
+        return Employee.builder()
+                .id(dto.getId())
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .Salary(dto.getSalary())
+                .build();
+    }
+
+
+
 
 }
